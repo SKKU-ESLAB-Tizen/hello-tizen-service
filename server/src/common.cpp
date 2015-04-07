@@ -14,7 +14,7 @@
 #define EXTAPI __attribute__((visibility("default")))
 #endif
 
-#define RKF_SERVER_MSG_LOG_FILE		"/var/log/messages"
+#define HELLO_SERVER_MSG_LOG_FILE		"/var/log/messages"
 #define FILE_LENGTH 255
 
 static int hts_debug_file_fd;
@@ -26,8 +26,8 @@ EXTAPI void hts_log(int type , int priority , const char *tag , const char *fmt 
 	va_start(ap, fmt);
 	
 	switch (type) {
-		case RKF_LOG_PRINT_FILE:
-			hts_debug_file_fd = open(RKF_SERVER_MSG_LOG_FILE, O_WRONLY|O_CREAT|O_APPEND, 0644);
+		case HELLO_LOG_PRINT_FILE:
+			hts_debug_file_fd = open(HELLO_SERVER_MSG_LOG_FILE, O_WRONLY|O_CREAT|O_APPEND, 0644);
 			if (hts_debug_file_fd != -1) {
 				vsnprintf(hts_debug_file_buf,255, fmt , ap );
 				write(hts_debug_file_fd, hts_debug_file_buf, strlen(hts_debug_file_buf));
@@ -35,18 +35,18 @@ EXTAPI void hts_log(int type , int priority , const char *tag , const char *fmt 
 			}
 			break;
 
-		case RKF_LOG_SYSLOG:
+		case HELLO_LOG_SYSLOG:
 			int syslog_prio;
 			switch (priority) {
-				case RKF_LOG_ERR:
+				case HELLO_LOG_ERR:
 					syslog_prio = LOG_ERR|LOG_DAEMON;
 					break;
 					
-				case RKF_LOG_DBG:
+				case HELLO_LOG_DBG:
 					syslog_prio = LOG_DEBUG|LOG_DAEMON;
 					break;
 
-				case RKF_LOG_INFO:
+				case HELLO_LOG_INFO:
 					syslog_prio = LOG_INFO|LOG_DAEMON;
 					break;
 					
@@ -58,18 +58,18 @@ EXTAPI void hts_log(int type , int priority , const char *tag , const char *fmt 
 			vsyslog(syslog_prio, fmt, ap);
 			break;
 
-		case RKF_LOG_DLOG:
+		case HELLO_LOG_DLOG:
 			if (tag) {
 				switch (priority) {
-					case RKF_LOG_ERR:
+					case HELLO_LOG_ERR:
 						SLOG_VA(LOG_ERROR, tag ? tag : "NULL" , fmt ? fmt : "NULL" , ap);
 						break;
 
-					case RKF_LOG_DBG:
+					case HELLO_LOG_DBG:
 						SLOG_VA(LOG_DEBUG, tag ? tag : "NULL", fmt ? fmt : "NULL" , ap);
 						break;
 
-					case RKF_LOG_INFO:
+					case HELLO_LOG_INFO:
 						SLOG_VA(LOG_INFO, tag ? tag : "NULL" , fmt ? fmt : "NULL" , ap);
 						break;
 				}

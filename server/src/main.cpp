@@ -1,3 +1,4 @@
+#define USE_DLOG_DEBUG
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,15 +29,17 @@ int main(int argc, char *argv[])
 
 	// Initialize a GTK main loop
 	gMainLoop = g_main_loop_new(NULL, FALSE);
-	ALOGD("Sevice started\n");
+	ALOGE("HELLO Sevice started\n");
+	printf("PHELLO Sevice started\n");
 
 	// Add callbacks to main loop
-	g_timeout_add(3000, timeout_func_cb, NULL); // Timeout callback: it will be called after 3000ms.
+	g_timeout_add(3, timeout_func_cb, gMainLoop); // Timeout callback: it will be called after 3000ms.
 
 	// Start the main loop of service
 	g_main_loop_run(gMainLoop);
 
-	ALOGI("Serice is terminated successfully\n");
+	ALOGE("HELLO Serice is terminated successfully\n");
+	printf("PHELLO Serice is terminated successfully\n");
 
 	return ret;
 }

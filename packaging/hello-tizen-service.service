@@ -4,8 +4,7 @@ After=bluetooth.service
 
 [Service]
 ExecStart=/usr/bin/hello-tizen-svc
-Restart=always
-RestartSec=1
+Type=oneshot
 
 [Install]
 WantedBy=graphical.target
