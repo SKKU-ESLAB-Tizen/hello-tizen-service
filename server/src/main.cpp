@@ -1,5 +1,3 @@
-#define USE_DLOG_DEBUG
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
