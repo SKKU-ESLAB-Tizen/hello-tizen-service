@@ -2,6 +2,11 @@
 #if !defined(_COMMON_H_)
 #define _COMMON_H_
 
+// Log methods
+// USE_DLOG_DEBUG: You can check logs by running 'dlogutil'
+// USE_SYSLOG_DEBUG: You can check logs by reading '/var/log/messages'
+// USE_FILE_DEBUG: You can check logs by reading '/var/log/messages'
+#define USE_DLOG_DEBUG
 
 #ifdef __cplusplus
 extern "C"
@@ -64,7 +69,7 @@ void hts_log(int type , int priority , const char *tag , const char *fmt , ...);
 #define DBG(fmt, arg...)	do { hts_log(HELLO_LOG_PRINT_FILE, 0, LOG_TAG ,"[HELLO_MSG_DBG][%s:%d] "fmt"\n",__MODULE__, __LINE__, ##arg); } while(0)
 #define INFO(fmt, arg...)	do { hts_log(HELLO_LOG_PRINT_FILE, 0, LOG_TAG ,"[HELLO_MSG_INFO][%s:%d] "fmt"\n",__MODULE__, __LINE__, ##arg); } while(0)
 
-#elif defined(USE_DLOG_LOG) 
+#elif defined(USE_DLOG_DEBUG) 
 
 #define ERR(fmt, arg...) do { hts_log(HELLO_LOG_DLOG, HELLO_LOG_ERR, LOG_TAG, "%s:%s(%d)> "fmt, __MODULE__, __func__, __LINE__, ##arg); } while(0)
 #define INFO(fmt, arg...) do { hts_log(HELLO_LOG_DLOG, HELLO_LOG_INFO, LOG_TAG, "%s:%s(%d)> "fmt, __MODULE__, __func__, __LINE__, ##arg); } while(0)
